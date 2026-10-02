@@ -14,8 +14,12 @@ export async function registrar(req, res){
         res.status(201).json(usuario)
     } 
     catch(error){
+        if(error.message === 'Email já cadastrado'){
+            return res.status(409).json({mensagem: error.message})
+        }
+
         console.error('Erro ao criar usuário:', error.stack);
 
-        res.status(500).json({error: 'Erro ao criar usuário'});
+        res.status(500).json({mensagem: 'Erro ao criar usuário'});
     }
 }
