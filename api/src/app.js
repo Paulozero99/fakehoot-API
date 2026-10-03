@@ -3,6 +3,7 @@ import cors from "cors"
 import helmet from "helmet"
 
 import authRoutes from './routes/authRoutes.js'
+import quizRoutes from './routes/quizRoutes.js'
 
 const app = express()
 
@@ -17,5 +18,6 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', authRoutes)
+app.use('/quizzes', quizRoutes)
 
 export default app 
