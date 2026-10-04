@@ -11,7 +11,9 @@ export async function registrar(req, res){
             role
         })
 
-        res.status(201).json(usuario)
+        res.status(201).json({
+            mensagem: `Usuário ${usuario.nome} cadastrado com sucesso`,
+        })
     } 
     catch(error){
         if(error.message === 'Email já cadastrado'){

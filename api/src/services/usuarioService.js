@@ -9,7 +9,6 @@ export async function criarUsuario(dados){
     }
 
     const senhaHash = await bcrypt.hash(dados.senha, 10)
-    const id = "uuid-1234"
 
     const usuario = await Usuario.create({
         ...dados,
