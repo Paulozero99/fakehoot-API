@@ -1,8 +1,9 @@
 import Quiz from "../models/Quiz.js";
 import Usuario from "../models/Usuario.js";
+import { gerarId } from "./idService.js";
 
 export async function criarQuiz(dados){
-    const mestreExiste = await Usuario.findOne({_id: dados.mestreId})  
+    const mestreExiste = await Usuario.findOne({id: dados.mestreId})  
 
     if(!mestreExiste){
         throw new Error('ID inválido')
@@ -11,7 +12,12 @@ export async function criarQuiz(dados){
         throw new Error("Usuário não é um mestre");
     }
 
-    const quiz = await Quiz.create(dados)
+    const id = await gerarId('QZ')
+
+    const quiz = await Quiz.create({
+        ...dados,
+        id
+    })
 
     return quiz
 }

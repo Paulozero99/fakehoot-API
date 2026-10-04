@@ -2,6 +2,12 @@ import mongoose from "mongoose"
 
 const quizSchema = new mongoose.Schema(
     {
+        id: {
+            type: String,
+            unique: true,
+            required: true
+        },
+
         titulo: {
             type: String,
             required: true,
@@ -14,7 +20,7 @@ const quizSchema = new mongoose.Schema(
         },
 
         mestreId: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: String,
             ref: 'Usuario',
             required: true
         }

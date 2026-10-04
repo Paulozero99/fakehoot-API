@@ -2,6 +2,12 @@ import mongoose from "mongoose"
 
 const usuarioSchema = new mongoose.Schema(
     {
+        id: {
+            type: String,
+            required: true,
+            unique: true
+        },
+
         nome: {
             type: String,
             required: true,
