@@ -1,4 +1,4 @@
-import { criarQuiz } from "../services/quizService"
+import { criarQuiz } from "../services/quizService.js"
 
 export async function resgistrarQuiz(req, res){
     try{

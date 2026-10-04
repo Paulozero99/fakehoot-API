@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
-import { validarQuiz } from '../middlewares/validarQuiz'
-import { resgistrarQuiz } from '../controllers/quizController'
+import { validarQuiz } from '../middlewares/validarQuiz.js'
+import { resgistrarQuiz } from '../controllers/quizController.js'
 
 const router = Router()
 
