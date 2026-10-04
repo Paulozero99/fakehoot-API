@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt'
 import Usuario from "../models/Usuario.js"
 
 export async function criarUsuario(dados){
@@ -7,7 +8,13 @@ export async function criarUsuario(dados){
         throw new Error('Email já cadastrado')
     }
 
-    const usuario = await Usuario.create(dados)
+    const senhaHash = await bcrypt.hash(dados.senha, 10)
+    const id = "uuid-1234"
+
+    const usuario = await Usuario.create({
+        ...dados,
+        senha: senhaHash
+    })
 
     return usuario
 }

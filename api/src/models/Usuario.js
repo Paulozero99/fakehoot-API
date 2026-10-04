@@ -16,6 +16,11 @@ const usuarioSchema = new mongoose.Schema(
             trim: true
         },
 
+        senha: {
+            type: String,
+            required: true,
+        },
+
         role: {
             type: String,
             enum: ['MESTRE', 'PLAYER'],
