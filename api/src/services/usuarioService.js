@@ -59,3 +59,13 @@ export async function atualizarUsuario(id, dados){
 
     return usuarioAtualizado
 }
+
+export async function buscarUsuario(nome){
+    const usuariosComTalNome = await Usuario.find({nome: new RegExp(nome, 'i')}).select('id nome email -_id')
+
+    if(usuariosComTalNome.length === 0){
+        throw new Error('Nenhum usuário registrado com esse nome')
+    }
+
+    return usuariosComTalNome
+}

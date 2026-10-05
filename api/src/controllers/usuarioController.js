@@ -1,4 +1,4 @@
-import { atualizarUsuario } from "../services/usuarioService.js"
+import { atualizarUsuario, buscarUsuario } from "../services/usuarioService.js"
 
 export async function atualizarInformacoesUsuario(req, res){
     try{
@@ -29,5 +29,27 @@ export async function atualizarInformacoesUsuario(req, res){
         console.error('Erro ao atualizar usuário:', error.stack);
 
         res.status(500).json({mensagem: 'Erro ao atualizar usuário'});
+    }
+}
+
+export async function buscarInformacoesUsuario(req, res){
+    try{
+        const {nome} = req.query
+
+        const usuariosEncontrados = await buscarUsuario(nome)
+
+        res.json({
+            mensagem: `Foram encontrados ${usuariosEncontrados.length} usuários`,
+            usuariosEncontrados
+        })
+    }
+    catch(error){
+        if(error.message === 'Nenhum usuário resgistrado com esse nome'){
+            return res.status(404).json({mensagem: error.message})
+        }
+
+        console.error('Erro ao buscar usuário:', error.stack)
+
+        res.status(500).json({mensagem: 'Erro ao buscar usuário'})
     }
 }
