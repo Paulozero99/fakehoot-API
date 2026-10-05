@@ -1,4 +1,8 @@
-import { atualizarUsuario, buscarUsuarioPorNome } from "../services/usuarioService.js"
+import { 
+    atualizarUsuario, 
+    buscarUsuarioPorNome, 
+    deletarUsuarioPorId
+} from "../services/usuarioService.js"
 
 export async function atualizarInformacoesUsuario(req, res){
     try{
@@ -51,5 +55,24 @@ export async function buscarUsuariosPorNome(req, res){
         console.error('Erro ao buscar usuário:', error.stack)
 
         res.status(500).json({mensagem: 'Erro ao buscar usuário'})
+    }
+}
+
+export async function deletarUsuario(req, res){
+    try{
+        const {id} = req.params
+
+        const usuarioDeletado = await deletarUsuarioPorId(id)
+
+        res.json({mensagem: `Usuário ${usuarioDeletado.nome} deletado`})
+    } 
+    catch(error){
+        if(error.message === 'Nenhum usuário registrado com esse id'){
+            return res.status(404).json({mensagem: error.message})
+        }
+
+        console.log('Erro ao deletar usuário:', error.stack)
+
+        res.status(500).json({mensagem: 'Erro ao deletar usuário'})
     }
 }

@@ -69,3 +69,13 @@ export async function buscarUsuarioPorNome(nome){
 
     return usuariosComTalNome
 }
+
+export async function deletarUsuarioPorId(id){
+    const usuario = await Usuario.findOneAndDelete({id: id})
+
+    if(!usuario){
+        throw new Error('Nenhum usuário registrado com esse id');
+    }
+
+    return usuario
+}   
