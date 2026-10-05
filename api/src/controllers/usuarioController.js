@@ -1,4 +1,4 @@
-import { atualizarUsuario, buscarUsuario } from "../services/usuarioService.js"
+import { atualizarUsuario, buscarUsuarioPorNome } from "../services/usuarioService.js"
 
 export async function atualizarInformacoesUsuario(req, res){
     try{
@@ -32,11 +32,11 @@ export async function atualizarInformacoesUsuario(req, res){
     }
 }
 
-export async function buscarInformacoesUsuario(req, res){
+export async function buscarUsuariosPorNome(req, res){
     try{
         const {nome} = req.query
 
-        const usuariosEncontrados = await buscarUsuario(nome)
+        const usuariosEncontrados = await buscarUsuarioPorNome(nome)
 
         res.json({
             mensagem: `Foram encontrados ${usuariosEncontrados.length} usuários`,
@@ -44,7 +44,7 @@ export async function buscarInformacoesUsuario(req, res){
         })
     }
     catch(error){
-        if(error.message === 'Nenhum usuário resgistrado com esse nome'){
+        if(error.message === 'Nenhum usuário registrado com esse nome'){
             return res.status(404).json({mensagem: error.message})
         }
 

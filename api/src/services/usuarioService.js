@@ -60,7 +60,7 @@ export async function atualizarUsuario(id, dados){
     return usuarioAtualizado
 }
 
-export async function buscarUsuario(nome){
+export async function buscarUsuarioPorNome(nome){
     const usuariosComTalNome = await Usuario.find({nome: new RegExp(nome, 'i')}).select('id nome email -_id')
 
     if(usuariosComTalNome.length === 0){
