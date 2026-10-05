@@ -14,6 +14,10 @@ export async function criarQuiz(dados){
 
     const id = await gerarId('QZ')
 
+    if(dados.descricao === undefined){
+        dados.descricao = ''
+    }
+
     const quiz = await Quiz.create({
         ...dados,
         id
