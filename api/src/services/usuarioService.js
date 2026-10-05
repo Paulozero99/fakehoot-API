@@ -20,3 +20,42 @@ export async function criarUsuario(dados){
 
     return usuario
 }
+
+export async function atualizarUsuario(id, dados){
+    const campos = {}
+
+    if(dados.nome !== undefined){
+        campos.nome = dados.nome
+    }
+
+    if(dados.email !== undefined){ 
+        const emailExistente = await Usuario.findOne(
+            {
+                email: dados.email,
+                id: {$ne: id}
+            }
+        )
+
+        if(emailExistente){
+            throw new Error("Um usuário já usa esse email")
+        }
+
+        campos.email = dados.email
+    }
+
+    const usuarioAtualizado = await Usuario.findOneAndUpdate(
+        {id: id},
+        {
+            $set: campos
+        },
+        {
+            returnDocument: 'after'
+        }
+    )
+
+    if(!usuarioAtualizado){
+        throw new Error("Usuário não encontrado")
+    }
+
+    return usuarioAtualizado
+}

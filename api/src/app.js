@@ -4,6 +4,7 @@ import helmet from "helmet"
 
 import authRoutes from './routes/authRoutes.js'
 import quizRoutes from './routes/quizRoutes.js'
+import usuarioRoutes from './routes/usuarioRoutes.js'
 
 const app = express()
 
@@ -19,5 +20,6 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authRoutes)
 app.use('/quizzes', quizRoutes)
+app.use('/usuarios', usuarioRoutes)
 
 export default app 
