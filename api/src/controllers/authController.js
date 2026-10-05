@@ -1,6 +1,6 @@
 import { criarUsuario } from "../services/usuarioService.js"
 
-export async function registrar(req, res){
+export async function registrarUsuario(req, res){
     try{
         const {nome, email, senha, role} = req.body
 
