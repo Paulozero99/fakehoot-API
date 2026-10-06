@@ -61,7 +61,9 @@ export async function atualizarUsuario(id, dados){
 }
 
 export async function buscarUsuarioPorNome(nome){
-    const usuariosComTalNome = await Usuario.find({nome: new RegExp(nome, 'i')}).select('id nome email -_id')
+    const nomeEscapado = nome.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+    const usuariosComTalNome = await Usuario.find({nome: new RegExp(`^${nomeEscapado}`, 'i')}).select('id nome email -_id')
 
     if(usuariosComTalNome.length === 0){
         throw new Error('Nenhum usuário registrado com esse nome')
