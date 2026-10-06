@@ -42,8 +42,15 @@ export async function buscarUsuariosPorNome(req, res){
 
         const usuariosEncontrados = await buscarUsuarioPorNome(nome)
 
+        if(usuariosEncontrados.length > 1){
+            return res.json({
+                mensagem: `Foram encontrados ${usuariosEncontrados.length} usuários`,
+                usuariosEncontrados
+            })
+        }
+
         res.json({
-            mensagem: `Foram encontrados ${usuariosEncontrados.length} usuários`,
+            mensagem: `Foi encontrado ${usuariosEncontrados.length} usuário`,
             usuariosEncontrados
         })
     }
