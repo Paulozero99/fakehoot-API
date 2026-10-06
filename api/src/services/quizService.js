@@ -53,3 +53,26 @@ export async function atualizarQuiz(id, dados){
 
     return quizAtualizado
 }
+
+export async function mostrarQuizzes(){
+    const quizzesEncotrados = await Quiz.find()
+        .select('titulo descricao mestreId -_id')
+        .populate({
+            path: 'mestreId',
+            select: 'nome -_id',
+            model: 'Usuario',
+            foreignField: 'id'
+        }).lean()
+
+    if(quizzesEncotrados.length === 0){
+        throw new Error('Nenhum quiz encontrado');
+    }
+
+    const quizzes = quizzesEncotrados.map(quiz => ({
+        titulo: quiz.titulo,
+        descricao: quiz.descricao,
+        dono: quiz.mestreId?.nome || 'Sem um mestre vinculado'
+    }))
+
+    return quizzes
+}

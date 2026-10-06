@@ -1,4 +1,4 @@
-import { atualizarQuiz, criarQuiz } from "../services/quizService.js"
+import { atualizarQuiz, criarQuiz, mostrarQuizzes } from "../services/quizService.js"
 
 export async function resgistrarQuiz(req, res){
     try{
@@ -49,8 +49,25 @@ export async function atualizarInformacoesQuiz(req, res){
             return res.status(404).json({mensagem: error.message})
         }
 
-        console.error('Error ao atualizar quiz:', error.stack)
+        console.error('Erro ao atualizar quiz:', error.stack)
 
         res.status(500).json({mensagem: 'Erro ao atualizar quiz'})
+    }
+}
+
+export async function mostrarTodosQuizzes(req, res){
+    try{
+        const quizzes = await mostrarQuizzes()
+
+        res.json(quizzes)
+    }
+    catch(error){
+        if(error.message === "Nenhum quiz encontrado"){
+            return res.status(404).json({mensagem: error.message})
+        }
+
+        console.error('Erro ao exibir quizzes:', error.stack)
+
+        res.status(500).json({mensagem: 'Erroa ao exibir quizzes'})
     }
 }
