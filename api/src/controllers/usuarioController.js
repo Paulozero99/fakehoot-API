@@ -41,16 +41,12 @@ export async function buscarUsuariosPorNome(req, res){
         const {nome} = req.query
 
         const usuariosEncontrados = await buscarUsuarioPorNome(nome)
+        const quantidadeUsuarios = usuariosEncontrados.length
 
-        if(usuariosEncontrados.length > 1){
-            return res.json({
-                mensagem: `Foram encontrados ${usuariosEncontrados.length} usuários`,
-                usuariosEncontrados
-            })
-        }
+        const mensagem = quantidadeUsuarios === 1 ? 'Foi encontrado apenas 1 usuário' : `Foram encotrados ${quantidadeUsuarios} usuários`
 
         res.json({
-            mensagem: `Foi encontrado ${usuariosEncontrados.length} usuário`,
+            mensagem,
             usuariosEncontrados
         })
     }
