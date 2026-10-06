@@ -76,3 +76,15 @@ export async function mostrarQuizzes(){
 
     return quizzes
 }
+
+export async function buscarQuizPorTitulo(titulo){
+    const tituloEscapado = titulo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+    const quizzesComTalNome = await Quiz.find({titulo: new RegExp(`^${tituloEscapado}`, 'i')}).select('id titulo descricao -_id')
+
+    if(quizzesComTalNome.length === 0){
+        throw new Error('Nenhum quiz encontrado com esse titulo')
+    }
+
+    return quizzesComTalNome
+}
